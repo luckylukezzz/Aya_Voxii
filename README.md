@@ -1,4 +1,4 @@
-# Voxxi - voice translating and modding assistant
+# Voxii - voice translating and modding assistant
 
 Voxii is a Python-based project that leverages the ChatGPT API, DeepL API, and VoiceVox to create a voice translation system. The project integrates speech recognition, translation, and voice synthesis to enable users to record spoken phrases in one language, translate them to another language, and then convert the translated text into synthetic character voice using VoiceVox. The Push-to-Talk mechanism is implemented for voice recording.
 
@@ -11,7 +11,7 @@ Voxii is a Python-based project that leverages the ChatGPT API, DeepL API, and V
 3. Navigate into the project directory:
 
    ```bash
-   $ cd voxii
+   $ cd Aya_Voxii
    ```
 
 4. Create a new virtual environment:
