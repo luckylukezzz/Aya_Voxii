@@ -1,23 +1,33 @@
 import http.client
 import json
+import os
+from config import target_lang
+from dotenv import load_dotenv
 
-conn = http.client.HTTPSConnection("deep-translate1.p.rapidapi.com")
+def deeptrans(text):
+    load_dotenv()
 
-payload = "{\r\n    \"q\": \"lets play together\",\r\n    \"source\": \"en\",\r\n    \"target\": \"ja\"\r\n}"
+    conn = http.client.HTTPSConnection("deep-translate1.p.rapidapi.com")
+    payload_j = {
+        "q": text,
+        "source": "en",
+        "target": target_lang
+    }   #json object is a dictionary
 
-headers = {
-    'content-type': "application/json",
-    'X-RapidAPI-Key': "be8ccbb9e0msh5115a6033bee5b6p105708jsn81d7946d1afe",
-    'X-RapidAPI-Host': "deep-translate1.p.rapidapi.com"
-}
+    payload = json.dumps(payload_j)    #converts the json object into string   
 
-conn.request("POST", "/language/translate/v2", payload, headers)
+    headers = {
+        'content-type': "application/json",
+        'X-RapidAPI-Key': os.getenv("DEEPTR_RAPID_API"),
+        'X-RapidAPI-Host': "deep-translate1.p.rapidapi.com"
+    }
+    
+    conn.request("POST", "/language/translate/v2", payload, headers)
 
-res = conn.getresponse()
-data = res.read()
-
-
-print("res type ",type(res))
-print("data type " ,type(data))
-print(json.loads(data.decode("utf-8"))["data"]["translations"]["translatedText"])
-
+    res = conn.getresponse()
+    data = res.read()
+    
+    try:
+        return json.loads(data.decode("utf-8"))["data"]["translations"]["translatedText"]
+    except KeyError:
+        return "Please check your deepTranslate api key at .env file"
