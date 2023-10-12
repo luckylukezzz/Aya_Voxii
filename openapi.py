@@ -1,4 +1,5 @@
 import os
+from sys import exit
 import openai
 from dotenv import load_dotenv
 
@@ -11,3 +12,4 @@ def transcribe_openai():
         return transcript["text"]
     except:
         print("check the openai key")
+        exit(0)

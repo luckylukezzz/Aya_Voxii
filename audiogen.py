@@ -53,4 +53,44 @@ class VoiceRecorder:
         sound_file.close()
 
 
-    
+def voiceplayer():
+    p = pyaudio.PyAudio()
+
+    # Open the audio file
+    wf = wave.open("./output.wav", 'rb')
+
+    # Open a stream
+    stream = p.open(
+        format=p.get_format_from_width(wf.getsampwidth()),
+        channels=wf.getnchannels(),
+        rate=wf.getframerate(),
+        output=True,
+        #output_device_index=14
+    )
+
+    # Read data from the audio file and play it
+    data = wf.readframes(1024)
+    while data:
+        stream.write(data)
+        data = wf.readframes(1024)
+
+    # Close the stream and PyAudio
+    stream.stop_stream()
+    stream.close()
+    p.terminate()
+
+
+
+# p = pyaudio.PyAudio()
+
+# # Get a list of available audio devices
+# devices = []
+# for i in range(p.get_device_count()):
+#     info = p.get_device_info_by_index(i)
+#     devices.append(info['name'])
+
+# # Print the list of available audio devices
+# print("Available audio output devices:")
+# for i, device in enumerate(devices):
+#     print(f"{i}: {device}")
+
