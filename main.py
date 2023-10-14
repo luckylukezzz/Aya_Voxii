@@ -5,6 +5,8 @@ from config import push_to_talk_key
 from testingdeeptrans import deeptrans
 from openapi import transcribe_openai
 from voicevoxRequests import voiceoutput
+from deepgraminit import transcribe_audio
+import asyncio
 
 if __name__ == "__main__":
     recorder = VoiceRecorder(push_to_talk_key)
