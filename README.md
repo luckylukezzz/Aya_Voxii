@@ -29,7 +29,10 @@ Voxii is a Python-based project that leverages the ChatGPT API, DeepL API, and V
 
 6. make the environment variables file with your api keys:
    (as in the .env_example file)
+   (you need the following api keys filled in the env file:
+      1. chatgpt api or deepgram api
+      2. deeptranslate api from rapid api)
 
-
-7. Run the app
+7. run voice vox in the background
+8. Run the app
 
