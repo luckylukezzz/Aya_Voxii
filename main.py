@@ -2,7 +2,7 @@ from audiogen import VoiceRecorder,voiceplayer
 from keyboard import wait, is_pressed
 from time import sleep
 from config import push_to_talk_key
-from testingdeeptrans import deeptrans
+from deeptranslate import deeptrans
 from openapi import transcribe_openai
 from voicevoxRequests import voiceoutput
 from deepgraminit import transcribe_audio

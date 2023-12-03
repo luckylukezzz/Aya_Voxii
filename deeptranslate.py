@@ -4,6 +4,9 @@ import os
 from config import target_lang
 from dotenv import load_dotenv
 
+
+#deeptranslate used to translate english text to japanese text here
+
 def deeptrans(text):
     load_dotenv()
 
@@ -11,8 +14,8 @@ def deeptrans(text):
     payload_j = {
         "q": text,
         "source": "en",
-        "target": target_lang
-    }   #json object is a dictionary
+        "target": target_lang    #gets the translated language from the config file
+    }   
 
     payload = json.dumps(payload_j)    #converts the json object into string   
 
@@ -31,3 +34,6 @@ def deeptrans(text):
         return json.loads(data.decode("utf-8"))["data"]["translations"]["translatedText"]
     except KeyError:
         return "Please check your deepTranslate api key at .env file"
+    
+
+

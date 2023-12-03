@@ -13,3 +13,4 @@ def transcribe_openai():
     except:
         print("check the openai key")
         exit(0)
+
