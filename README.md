@@ -27,7 +27,8 @@ Voxii is a Python-based project that leverages the ChatGPT API, DeepL API, and V
    $ pip install -r requirements.txt
    ```
 
-6. edit the environment variables file with your api keys:
+6. make the environment variables file with your api keys:
+   (as in the .env_example file)
 
 
 7. Run the app
