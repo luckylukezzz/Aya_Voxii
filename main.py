@@ -1,7 +1,7 @@
 from audiogen import VoiceRecorder,voiceplayer
 from keyboard import wait, is_pressed
 from time import sleep
-from config import push_to_talk_key
+from config import push_to_talk_key,character
 from deeptranslate import deeptrans
 from openapi import transcribe_openai
 from voicevoxRequests import voiceoutput
@@ -20,11 +20,15 @@ if __name__ == "__main__":
                 sleep(0.1)
 
             recorder.stop_recording()
-            engtext = transcribe_openai()
+
+            # uncomment these to select the required transcribe api
+            engtext = transcribe_audio()
+            #engtext = transcribe_openai()
+
             print(engtext)
             jptext= (deeptrans(engtext))
             print(jptext)
-            voiceoutput(jptext,1)
+            voiceoutput(jptext,character)
             voiceplayer()
     except KeyboardInterrupt:
         pass
