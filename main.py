@@ -24,7 +24,7 @@ if __name__ == "__main__":
             print(engtext)
             jptext= (deeptrans(engtext))
             print(jptext)
-            voiceoutput(jptext,6)
+            voiceoutput(jptext,1)
             voiceplayer()
     except KeyboardInterrupt:
         pass
