@@ -5,3 +5,4 @@ pyaudio==0.2.13
 wave==0.0.2
 keyboard==0.13.5
 requests
+dotenv
