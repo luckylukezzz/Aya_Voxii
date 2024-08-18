@@ -1,7 +1,6 @@
 import http.client
 import json
 import os
-from config import target_lang
 from dotenv import load_dotenv
 
 
@@ -14,7 +13,7 @@ def deeptrans(text):
     payload_j = {
         "q": text,
         "source": "en",
-        "target": target_lang    #gets the translated language from the config file
+        "target": "ja"   #gets the translated language from the config file
     }   
 
     payload = json.dumps(payload_j)    #converts the json object into string   

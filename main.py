@@ -8,7 +8,7 @@ from voicevoxRequests import voiceoutput
 from deepgram_transcribe import deepgram_tc
 import asyncio
 
-if __name__ == "__main__":
+def run():
     recorder = VoiceRecorder(push_to_talk_key)
     try:
         while True:
