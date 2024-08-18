@@ -4,6 +4,8 @@ import os
 import sys
 from dotenv import load_dotenv, set_key
 import config
+import main
+import threading
 
 # Load environment variables from .env file
 load_dotenv()
@@ -16,6 +18,9 @@ DEEPGRAM_API_KEY = os.getenv("DEEPGRAM_API_KEY", "")
 push_to_talk_key = config.push_to_talk_key
 character = config.character
 
+# Global variable to store the running thread
+run_thread = None
+
 # Function to save to .env file
 def save_to_env_file():
     set_key(".env", "DEEPTR_RAPID_API", DEEPTR_RAPID_API)
@@ -27,10 +32,19 @@ def save_to_config_py():
         f.write(f"push_to_talk_key = '{push_to_talk_key}'\n")
         f.write(f"character = {character}\n")
 
+# Function to stop the running thread
+def stop_running():
+    global run_thread
+    if run_thread is not None:
+        main.stop()  # Signal to stop the main loop
+        run_thread.join()  # Wait for the thread to finish
+
 # Function to restart the program
 def restart_program():
-    python = sys.executable
-    os.execl(python, python, *sys.argv)
+    stop_running()
+    global run_thread
+    run_thread = threading.Thread(target=main.run)
+    run_thread.start()
 
 # Function to save the settings
 def save_settings():
@@ -53,8 +67,12 @@ def save_settings():
 
 # Function to start the program
 def start_program():
-    import main
-    main.run()  # Assuming you have a function called `run()` in main.py
+    global run_thread
+    if run_thread is None or not run_thread.is_alive():
+        run_thread = threading.Thread(target=main.run)
+        run_thread.start()
+    else:
+        messagebox.showinfo("Info", "Program is already running.")
 
 # Initialize the main window
 root = tk.Tk()
