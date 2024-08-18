@@ -5,7 +5,7 @@ from config import push_to_talk_key,character
 from deeptranslate import deeptrans
 from openapi import transcribe_openai
 from voicevoxRequests import voiceoutput
-from deepgraminit import transcribe_audio
+from deepgram_transcribe import deepgram_tc
 import asyncio
 
 if __name__ == "__main__":
@@ -22,7 +22,7 @@ if __name__ == "__main__":
             recorder.stop_recording()
 
             # uncomment these to select the required transcribe api
-            engtext = transcribe_audio()
+            engtext = deepgram_tc()
             #engtext = transcribe_openai()
 
             print(engtext)
