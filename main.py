@@ -2,10 +2,10 @@ from audiogen import VoiceRecorder,voiceplayer
 from keyboard import wait, is_pressed
 from time import sleep
 from config import push_to_talk_key,character
-from deeptranslate import deeptrans
-from openapi import transcribe_openai
-from voicevoxRequests import voiceoutput
-from deepgram_transcribe import deepgram_tc
+from api.deeptranslate import deeptrans
+from api.openapi import transcribe_openai
+from api.voicevoxRequests import voiceoutput
+from api.deepgram_transcribe import deepgram_tc
 import asyncio
 
 if __name__ == "__main__":
