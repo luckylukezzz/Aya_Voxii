@@ -1,7 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit
+import os
+from dotenv import load_dotenv, set_key
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QInputDialog
 from PyQt5.QtCore import QThread, Qt
-from PyQt5.QtGui import QPixmap  # Add this line
+from PyQt5.QtGui import QPixmap, QPalette, QColor
 from audiogen import VoiceRecorder, voiceplayer
 from time import sleep
 from config import push_to_talk_key, target_lang, character
@@ -9,6 +11,8 @@ from api.deeptranslate import deeptrans
 from api.voicevoxRequests import voiceoutput
 from api.deepgram_transcribe import deepgram_tc
 import importlib
+
+load_dotenv()
 
 character_images = {
     1: "images/1.png",
@@ -64,7 +68,25 @@ class MainWindow(QWidget):
 
     def initUI(self):
         self.setWindowTitle('Voice Translator')
-        self.setGeometry(100, 100, 500, 300)
+        self.setGeometry(100, 100, 600, 400)
+
+        # Set dark theme
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #2b2b2b;
+                color: #ffffff;
+            }
+            QPushButton {
+                background-color: #3d3d3d;
+                border: none;
+                padding: 5px;
+            }
+            QLineEdit {
+                background-color: #3d3d3d;
+                border: none;
+                padding: 5px;
+            }
+        """)
 
         main_layout = QHBoxLayout()
 
@@ -103,6 +125,10 @@ class MainWindow(QWidget):
         self.save_button.clicked.connect(self.save_config)
         controls_layout.addWidget(self.save_button)
 
+        self.api_keys_button = QPushButton('Modify API Keys', self)
+        self.api_keys_button.clicked.connect(self.modify_api_keys)
+        controls_layout.addWidget(self.api_keys_button)
+
         main_layout.addLayout(controls_layout)
         self.setLayout(main_layout)
 
@@ -139,7 +165,6 @@ class MainWindow(QWidget):
 
         importlib.reload(sys.modules['config'])
         
-        # Update the character image
         self.update_character_image(character)
 
     def enable_inputs(self, enabled):
@@ -147,6 +172,31 @@ class MainWindow(QWidget):
         self.lang_input.setEnabled(enabled)
         self.char_input.setEnabled(enabled)
         self.save_button.setEnabled(enabled)
+        self.api_keys_button.setEnabled(enabled)
+
+    def modify_api_keys(self):
+        api_keys = [
+            'OPENAI_API_KEY',
+            'DEEPL_API_KEY',
+            'DEEPGRAM_API_KEY',
+            # Add more API keys as needed
+        ]
+
+        for key in api_keys:
+            current_value = os.getenv(key, '')
+            new_value, ok = QInputDialog.getText(self, f'Modify {key}', f'Enter new value for {key}:', 
+                                                 QLineEdit.Password, current_value)
+            if ok and new_value:
+                set_key('.env', key, new_value)
+                os.environ[key] = new_value
+
+        # Reload environment variables
+        load_dotenv()
+
+        # Reload any modules that use these API keys
+        importlib.reload(sys.modules['api.deeptranslate'])
+        importlib.reload(sys.modules['api.deepgram_transcribe'])
+        # Add more module reloads if necessary
 
     def keyPressEvent(self, event):
         if event.text() == push_to_talk_key:
