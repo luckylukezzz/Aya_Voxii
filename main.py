@@ -176,10 +176,11 @@ class MainWindow(QWidget):
 
     def modify_api_keys(self):
         api_keys = [
-            'OPENAI_API_KEY',
-            'DEEPL_API_KEY',
+            'DEEPTR_RAPID_API',
             'DEEPGRAM_API_KEY',
-            # Add more API keys as needed
+            'OPENAI_API_KEY',
+            'DEEPL_API_KEY'
+            
         ]
 
         for key in api_keys:
