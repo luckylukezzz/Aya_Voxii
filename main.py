@@ -3,7 +3,7 @@ import os
 from dotenv import load_dotenv, set_key
 from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QInputDialog
 from PyQt5.QtCore import QThread, Qt
-from PyQt5.QtGui import QPixmap, QPalette, QColor
+from PyQt5.QtGui import QPixmap, QPalette, QColor, QIcon
 from audiogen import VoiceRecorder, voiceplayer
 from time import sleep
 from config import push_to_talk_key, target_lang, character
@@ -67,7 +67,8 @@ class MainWindow(QWidget):
         self.key_pressed = False
 
     def initUI(self):
-        self.setWindowTitle('Voice Translator')
+        self.setWindowTitle('Aya_voxii')
+        self.setWindowIcon(QIcon('icon.ico'))
         self.setGeometry(100, 100, 600, 400)
 
         # Set dark theme
