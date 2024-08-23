@@ -15,5 +15,8 @@ def voiceoutput(jptext,speaker_id=0):
                         audio_file.write(await audio_response.read())
 
     # Run the event loop
-    asyncio.run(get_audio_file(jptext, 0))
+    asyncio.run(get_audio_file(jptext, speaker_id))
     print("voice generated")
+
+
+# voiceoutput("これは、ピノキオピーさんなりの「生きる」ためのメッセージ…。「現実は楽しいよ」みたいなものじゃなくて、「現実が一番マシ」っていうことを書いた、変わった応援歌だ。",6)

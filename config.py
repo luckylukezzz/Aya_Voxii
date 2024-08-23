@@ -1,3 +1,3 @@
-push_to_talk_key = 't'
-target_lang = 'ja'  
-character = 1
+push_to_talk_key = 'h'
+target_lang = 'ja'
+character = 2
